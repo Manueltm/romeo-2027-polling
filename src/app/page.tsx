@@ -71,7 +71,16 @@ export default function Home() {
 
   // Generate 4 random AI options
   const generateAiOptions = () => {
-    const pool = [
+    const pool = watch('language') === 'Yoruba' ? [
+      'Diẹ sii nipa Dr. Abdulrasheed',
+      'Kini Dr. Abdulrasheed duro fun',
+      'Bawo ni Dr. Abdulrasheed yoo ṣe dara si ipinlẹ Osun',
+      'Awọn aṣeyọri Dr. Abdulrasheed',
+      'Iran fun 2027',
+      'Awọn eto imulo lori Eto-ọrọ',
+      'Ipa agbegbe ni Osun',
+      'Awọn ipilẹṣẹ Ohun-ini Gidi',
+    ] : [
       'More about Dr. Abdulrasheed',
       'What Dr. Abdulrasheed Stands for',
       'How will Dr. Abdulrasheed better Osun state',
@@ -97,10 +106,10 @@ export default function Home() {
         setStep(3);
         setShowModal(true);
       } else {
-        alert('Error saving responses. Try again.');
+        alert(watch('language') === 'Yoruba' ? 'Aṣiṣe ni fifipamọ awọn idahun. Gbiyanju lẹẹkansi.' : 'Error saving responses. Try again.');
       }
     } catch {
-      alert('Network error. Please try again.');
+      alert(watch('language') === 'Yoruba' ? 'Aṣiṣe nẹtiwọọki. Jọwọ gbiyanju lẹẹkansi.' : 'Network error. Please try again.');
     }
   };
 
@@ -111,7 +120,7 @@ export default function Home() {
     setStep(4);
   };
 
-  // Handle AI question (for both suggested questions and custom input)
+  // Handle AI question
   const handleAiSubmit = async (question: string) => {
     if (!question.trim()) return;
     setShowAiLoadingModal(true);
@@ -137,18 +146,62 @@ export default function Home() {
     window.location.reload();
   };
 
-  // Yoruba stub
-  if (watch('language') === 'Yoruba') {
-    return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <p className="text-xl text-red-500">Yoruba version coming soon. Please select English.</p>
-      </div>
-    );
-  }
+  const translations = {
+    title: watch('language') === 'Yoruba' ? 'Romeo 2027' : 'Romeo 2027',
+    languagePrompt: watch('language') === 'Yoruba' ? 'Ede wo ni o fẹ?' : 'What language do you prefer?',
+    selectLanguage: watch('language') === 'Yoruba' ? 'Yan Ede' : 'Select Language',
+    next: watch('language') === 'Yoruba' ? 'Tẹsiwaju' : 'Next',
+    personalInfo: watch('language') === 'Yoruba' ? 'Alaye Ti Ara Ẹni' : 'Personal Information',
+    enterFullName: watch('language') === 'Yoruba' ? 'Tẹ gbogbo Orukọ rẹ' : 'Enter Full Name',
+    selectState: watch('language') === 'Yoruba' ? 'Yan Ipinlẹ rẹ' : 'Select State',
+    selectLga: watch('language') === 'Yoruba' ? 'Yan LGA' : 'Select LGA',
+    enterWard: watch('language') === 'Yoruba' ? 'Tẹ Wardi rẹ' : 'Enter your Ward',
+    selectGender: watch('language') === 'Yoruba' ? 'Ọkunrin tabi Obinrin' : 'Select Gender',
+    male: watch('language') === 'Yoruba' ? 'Ọkunrin' : 'Male',
+    female: watch('language') === 'Yoruba' ? 'Obinrin' : 'Female',
+    previous: watch('language') === 'Yoruba' ? 'Pada sehin' : 'Previous',
+    continue: watch('language') === 'Yoruba' ? 'Tẹsiwaju' : 'Continue to Next Section',
+    doYouKnow: watch('language') === 'Yoruba' ? 'Ṣe o mọ...' : 'Do you know...',
+    residencePlaceholder: watch('language') === 'Yoruba' ? 'Tẹ adirẹsi ibugbe' : 'Enter residential address',
+    phonePlaceholder: watch('language') === 'Yoruba' ? 'Tẹ nọmba foonu' : 'Enter phone number (optional)',
+    submit: watch('language') === 'Yoruba' ? 'Fi silẹ' : 'Submit',
+    languageRequired: watch('language') === 'Yoruba' ? 'Ede se pataki' : 'Language is required',
+    nameRequired: watch('language') === 'Yoruba' ? 'Orukọ se pataki' : 'Full name is required',
+    stateRequired: watch('language') === 'Yoruba' ? 'Ipinlẹ se pataki' : 'State is required',
+    lgaRequired: watch('language') === 'Yoruba' ? 'LGA se pataki' : 'LGA is required',
+    wardRequired: watch('language') === 'Yoruba' ? 'Ward se pataki' : 'Ward is required',
+    ageRequired: watch('language') === 'Yoruba' ? 'Ọjọ ori se pataki' : 'Age is required',
+    genderRequired: watch('language') === 'Yoruba' ? 'Idena se pataki' : 'Gender is required',
+    residenceRequired: watch('language') === 'Yoruba' ? 'Adirẹsi ibugbe se pataki' : 'Residential address is required',
+    phoneInvalid: watch('language') === 'Yoruba' ? 'Tẹ nọmba foonu to wulo' : 'Enter a valid phone number',
+    yes: watch('language') === 'Yoruba' ? 'Bẹẹni' : 'Yes',
+    no: watch('language') === 'Yoruba' ? 'Rara' : 'No',
+    romeoLabel: watch('language') === 'Yoruba' ? 'Romeo' : 'Romeo',
+    muyideenLabel: watch('language') === 'Yoruba' ? 'Dr. Muyideen' : 'Dr. Muyideen',
+    abdulrasheedLabel: watch('language') === 'Yoruba' ? 'Dr. Abdulrasheed' : 'Dr. Abdulrasheed',
+    savewellLabel: watch('language') === 'Yoruba' ? 'Savewell Homes' : 'Savewell Homes',
+    responseRequired: (label: string) => watch('language') === 'Yoruba' ? `Idahun ${label} nilo` : `${label} response is required`,
+    progressLabels: watch('language') === 'Yoruba' ? ['Ede', 'Alaye Ti Ara Ẹni', 'Awọn Ibeere Imọ'] : ['Language', 'Personal Info', 'Knowledge Questions'],
+    modal: {
+      name: watch('language') === 'Yoruba' ? 'Dr. Abdulrasheed Nuideen Romeo' : 'Dr. Abdulrasheed Nuideen Romeo',
+      age: watch('language') === 'Yoruba' ? 'Ọjọ ori: 48 ọdun' : 'Age: 48 years',
+      party: watch('language') === 'Yoruba' ? 'Ẹgbẹ: APC' : 'Party: APC',
+      identity: watch('language') === 'Yoruba' ? 'Idanimọ: Oloselu, Real Estate & Oludamọran' : 'Identity: Politician, Real Estate & Mentor',
+      tellMeMore: watch('language') === 'Yoruba' ? 'Sọ diẹ sii fun mi' : 'Tell me more',
+      close: watch('language') === 'Yoruba' ? 'Mo kọ' : 'Close',
+    },
+    aiSection: {
+      title: watch('language') === 'Yoruba' ? 'Kọ ẹkọ diẹ sii nipa Dr. Abdulrasheed' : 'Learn More About Dr. Abdulrasheed',
+      askPlaceholder: watch('language') === 'Yoruba' ? 'Beere Ohunkohun Lọwọ Dr. Abdulrasheed' : 'Ask Dr. Abdulrasheed Anything',
+      ask: watch('language') === 'Yoruba' ? 'Beere' : 'Ask',
+      saveAndQuit: watch('language') === 'Yoruba' ? 'Fipamọ ki o jade' : 'Save and Quit',
+      loading: watch('language') === 'Yoruba' ? 'Dr. Abdulrasheed n dahun...' : 'Dr. Abdulrasheed is answering...',
+    },
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
-      <h1 className="text-4xl font-bold text-blue-800 mb-8">Romeo 2027</h1>
+      <h1 className="text-4xl font-bold text-blue-800 mb-8">{translations.title}</h1>
 
       {step < 3 && (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
@@ -161,14 +214,14 @@ export default function Home() {
           >
             <SwiperSlide>
               <div className="text-center">
-                <h2 className="text-2xl font-semibold mb-4">What language do you prefer?</h2>
+                <h2 className="text-2xl font-semibold mb-4">{translations.languagePrompt}</h2>
                 <Controller
                   name="language"
                   control={control}
-                  rules={{ required: 'Language is required' }}
+                  rules={{ required: translations.languageRequired }}
                   render={({ field }) => (
                     <select {...field} className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-                      <option value="">Select Language</option>
+                      <option value="">{translations.selectLanguage}</option>
                       <option value="English">English</option>
                       <option value="Yoruba">Yoruba</option>
                     </select>
@@ -181,21 +234,21 @@ export default function Home() {
                   disabled={!isLanguageStepValid}
                   className="mt-6 bg-blue-500 text-white p-3 rounded w-full disabled:bg-gray-400"
                 >
-                  Next
+                  {translations.next}
                 </button>
               </div>
             </SwiperSlide>
 
             <SwiperSlide>
-              <h2 className="text-2xl font-semibold mb-4">Personal Information</h2>
+              <h2 className="text-2xl font-semibold mb-4">{translations.personalInfo}</h2>
               <div className="space-y-4">
                 <div>
                   <Controller
                     name="name"
                     control={control}
-                    rules={{ required: 'Full name is required' }}
+                    rules={{ required: translations.nameRequired }}
                     render={({ field }) => (
-                      <input {...field} placeholder="Enter Full Name" className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      <input {...field} placeholder={translations.enterFullName} className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     )}
                   />
                   {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
@@ -205,10 +258,10 @@ export default function Home() {
                   <Controller
                     name="state"
                     control={control}
-                    rules={{ required: 'State is required' }}
+                    rules={{ required: translations.stateRequired }}
                     render={({ field }) => (
                       <select {...field} className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select State</option>
+                        <option value="">{translations.selectState}</option>
                         {nigeriaData.states.map(s => (
                           <option key={s.name} value={s.name}>{s.name}</option>
                         ))}
@@ -222,10 +275,10 @@ export default function Home() {
                   <Controller
                     name="lga"
                     control={control}
-                    rules={{ required: 'LGA is required' }}
+                    rules={{ required: translations.lgaRequired }}
                     render={({ field }) => (
                       <select {...field} className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" disabled={!selectedState}>
-                        <option value="">Select LGA</option>
+                        <option value="">{translations.selectLga}</option>
                         {lgas.map(lga => (
                           <option key={lga} value={lga}>{lga}</option>
                         ))}
@@ -239,9 +292,9 @@ export default function Home() {
                   <Controller
                     name="ward"
                     control={control}
-                    rules={{ required: 'Ward is required' }}
+                    rules={{ required: translations.wardRequired }}
                     render={({ field }) => (
-                      <input {...field} placeholder="Enter your Ward" className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      <input {...field} placeholder={translations.enterWard} className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     )}
                   />
                   {errors.ward && <p className="text-red-500 text-sm mt-1">{errors.ward.message}</p>}
@@ -251,7 +304,7 @@ export default function Home() {
                   <Controller
                     name="age"
                     control={control}
-                    rules={{ required: 'Age is required' }}
+                    rules={{ required: translations.ageRequired }}
                     render={({ field }) => (
                       <div className="space-y-2">
                         {['<18 years', '18 - 24 years', '25 - 34 years', '35 - 49 years', '50+ years'].map(opt => (
@@ -270,12 +323,12 @@ export default function Home() {
                   <Controller
                     name="gender"
                     control={control}
-                    rules={{ required: 'Gender is required' }}
+                    rules={{ required: translations.genderRequired }}
                     render={({ field }) => (
                       <select {...field} className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
+                        <option value="">{translations.selectGender}</option>
+                        <option value="male">{translations.male}</option>
+                        <option value="female">{translations.female}</option>
                       </select>
                     )}
                   />
@@ -288,7 +341,7 @@ export default function Home() {
                     onClick={() => swiperRef.current?.slidePrev()}
                     className="mt-6 bg-gray-500 text-white p-3 rounded flex-1"
                   >
-                    Previous
+                    {translations.previous}
                   </button>
                   <button
                     type="button"
@@ -296,27 +349,27 @@ export default function Home() {
                     disabled={!isPersonalInfoStepValid}
                     className="mt-6 bg-blue-500 text-white p-3 rounded flex-1 disabled:bg-gray-400"
                   >
-                    Continue to Next Section
+                    {translations.continue}
                   </button>
                 </div>
               </div>
             </SwiperSlide>
 
             <SwiperSlide>
-              <h2 className="text-2xl font-semibold mb-4">Do you know...</h2>
+              <h2 className="text-2xl font-semibold mb-4">{translations.doYouKnow}</h2>
               <div className="space-y-4">
                 {[
-                  { name: 'knowsRomeo', label: 'Romeo' },
-                  { name: 'knowsMuyideen', label: 'Dr. Muyideen' },
-                  { name: 'knowsAbdulrasheed', label: 'Dr. Abdulrasheed' },
-                  { name: 'heardSavewell', label: 'Savewell Homes' },
+                  { name: 'knowsRomeo', label: translations.romeoLabel },
+                  { name: 'knowsMuyideen', label: translations.muyideenLabel },
+                  { name: 'knowsAbdulrasheed', label: translations.abdulrasheedLabel },
+                  { name: 'heardSavewell', label: translations.savewellLabel },
                 ].map(({ name, label }) => (
                   <div key={name}>
                     <label className="block text-sm font-medium mb-1">{label}</label>
                     <Controller
                       name={name as keyof FormData}
                       control={control}
-                      rules={{ required: `${label} response is required` }}
+                      rules={{ required: translations.responseRequired(label) }}
                       render={({ field }) => (
                         <div className="flex gap-4">
                           <label className="flex items-center">
@@ -326,7 +379,7 @@ export default function Home() {
                               onChange={() => field.onChange('Yes')}
                               className="mr-2"
                             />
-                            Yes
+                            {translations.yes}
                           </label>
                           <label className="flex items-center">
                             <input
@@ -335,7 +388,7 @@ export default function Home() {
                               onChange={() => field.onChange('No')}
                               className="mr-2"
                             />
-                            No
+                            {translations.no}
                           </label>
                         </div>
                       )}
@@ -350,9 +403,9 @@ export default function Home() {
                   <Controller
                     name="residence"
                     control={control}
-                    rules={{ required: 'Residential address is required' }}
+                    rules={{ required: translations.residenceRequired }}
                     render={({ field }) => (
-                      <input {...field} placeholder="Enter residential address" className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      <input {...field} placeholder={translations.residencePlaceholder} className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     )}
                   />
                   {errors.residence && <p className="text-red-500 text-sm mt-1">{errors.residence.message}</p>}
@@ -362,9 +415,9 @@ export default function Home() {
                   <Controller
                     name="phone"
                     control={control}
-                    rules={{ pattern: { value: /^\d{10,11}$/, message: 'Enter a valid phone number' } }}
+                    rules={{ pattern: { value: /^\d{10,11}$/, message: translations.phoneInvalid } }}
                     render={({ field }) => (
-                      <input {...field} placeholder="Enter phone number (optional)" type="tel" className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                      <input {...field} placeholder={translations.phonePlaceholder} type="tel" className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     )}
                   />
                   {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>}
@@ -376,14 +429,14 @@ export default function Home() {
                     onClick={() => swiperRef.current?.slidePrev()}
                     className="mt-6 bg-gray-500 text-white p-3 rounded flex-1"
                   >
-                    Previous
+                    {translations.previous}
                   </button>
                   <button
                     type="submit"
                     disabled={!isKnowledgeStepValid}
                     className="mt-6 bg-green-500 text-white p-3 rounded flex-1 disabled:bg-gray-400"
                   >
-                    Submit
+                    {translations.submit}
                   </button>
                 </div>
               </div>
@@ -392,7 +445,7 @@ export default function Home() {
 
           {/* Progress Bar */}
           <div className="mt-6 flex justify-between items-center">
-            {['Language', 'Personal Info', 'Knowledge Questions'].map((label, index) => (
+            {translations.progressLabels.map((label, index) => (
               <div key={index} className="flex-1 text-center">
                 <div
                   className={`h-2 rounded ${index <= step ? 'bg-blue-500' : 'bg-gray-300'}`}
@@ -413,17 +466,17 @@ export default function Home() {
             <Image src="/politician-image.jpg" alt="Dr. Abdulrasheed" width={200} height={200} className="rounded-lg mr-6" />
             <div className="flex flex-col justify-between">
               <div>
-                <h3 className="text-xl font-bold">Dr. Abdulrasheed Nuideen Romeo</h3>
-                <p className="text-gray-600">Age: 48 years</p>
-                <p className="text-gray-600">Party: APC</p>
-                <p className="text-gray-600">Identity: Politician, Real Estate & Mentor</p>
+                <h3 className="text-xl font-bold">{translations.modal.name}</h3>
+                <p className="text-gray-600">{translations.modal.age}</p>
+                <p className="text-gray-600">{translations.modal.party}</p>
+                <p className="text-gray-600">{translations.modal.identity}</p>
               </div>
               <div className="flex mt-4">
                 <button onClick={handleTellMeMore} className="bg-blue-500 text-white p-3 rounded mr-2">
-                  Tell me more
+                  {translations.modal.tellMeMore}
                 </button>
                 <button onClick={() => setShowModal(false)} className="bg-gray-500 text-white p-3 rounded">
-                  Close
+                  {translations.modal.close}
                 </button>
               </div>
             </div>
@@ -434,40 +487,39 @@ export default function Home() {
       {/* AI Section */}
       {step === 4 && (
         <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
-          <div className="flex flex-col sm:flex-row">
-            <Image src="/politician-image.jpg" alt="Dr. Abdulrasheed" width={200} height={200} className="rounded-lg mb-4 sm:mb-0 sm:mr-6" />
-            <div className="flex-1">
-              <h2 className="text-2xl font-semibold mb-4">Learn More About Dr. Abdulrasheed</h2>
+          <div className="flex flex-col items-center">
+            <Image src="/politician-image.jpg" alt="Dr. Abdulrasheed" width={150} height={150} className="rounded-lg mb-4" />
+            <h2 className="text-2xl font-semibold mb-4 text-center">{translations.aiSection.title}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mb-4">
               {aiOptions.map((opt, i) => (
                 <button
                   key={i}
-                  onClick={() => {
-                    setAiQuestion(opt);
-                    handleAiSubmit(opt);
-                  }}
-                  className="block w-full text-left bg-gray-200 p-3 rounded mb-2 hover:bg-gray-300"
+                  onClick={() => handleAiSubmit(opt)}
+                  className="text-left bg-gray-200 p-3 rounded hover:bg-gray-300"
                 >
                   {opt}
                 </button>
               ))}
+            </div>
+            <div className="w-full">
               <input
                 value={aiQuestion}
                 onChange={(e) => setAiQuestion(e.target.value)}
-                placeholder="Ask Dr. Abdulrasheed Anything"
-                className="p-3 border rounded w-full mt-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder={translations.aiSection.askPlaceholder}
+                className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
                 onClick={() => handleAiSubmit(aiQuestion)}
                 className="mt-4 bg-blue-500 text-white p-3 rounded w-full disabled:bg-gray-400"
                 disabled={!aiQuestion.trim()}
               >
-                Ask
+                {translations.aiSection.ask}
               </button>
               <button
                 onClick={handleSaveAndQuit}
-                className="mt-6 bg-red-500 text-white p-3 rounded w-full"
+                className="mt-4 bg-red-500 text-white p-3 rounded w-full"
               >
-                Save and Quit
+                {translations.aiSection.saveAndQuit}
               </button>
             </div>
           </div>
@@ -478,7 +530,7 @@ export default function Home() {
       {showAiLoadingModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
-            <p className="text-gray-800 text-center">Dr. Abdulrasheed is answering...</p>
+            <p className="text-gray-800 text-center">{translations.aiSection.loading}</p>
           </div>
         </div>
       )}
@@ -493,7 +545,7 @@ export default function Home() {
               onClick={() => setShowAiResponseModal(false)}
               className="bg-gray-500 text-white p-3 rounded w-full"
             >
-              Close
+              {translations.modal.close}
             </button>
           </div>
         </div>
