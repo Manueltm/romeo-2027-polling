@@ -472,12 +472,13 @@ export default function Home() {
                   className="rounded-lg object-cover"
                 />
               </div>
-              <div className="text-center w-full">
-                <h3 className="text-lg sm:text-xl font-bold mb-2">{translations.modal.name}</h3>
-                <p className="text-gray-600 text-sm sm:text-base mb-1">{translations.modal.age}</p>
-                <p className="text-gray-600 text-sm sm:text-base mb-1">{translations.modal.party}</p>
-                <p className="text-gray-600 text-sm sm:text-base mb-4">{translations.modal.identity}</p>
-              </div>
+              <div className="text-left w-full">
+  <h3 className="text-lg sm:text-xl font-bold mb-2">{translations.modal.name}</h3>
+  <p className="text-gray-600 text-sm sm:text-base mb-1">{translations.modal.age}</p>
+  <p className="text-gray-600 text-sm sm:text-base mb-1">{translations.modal.party}</p>
+  <p className="text-gray-600 text-sm sm:text-base mb-4">{translations.modal.identity}</p>
+</div>
+
               <div className="flex flex-col w-full gap-2">
                 <button 
                   onClick={handleTellMeMore} 

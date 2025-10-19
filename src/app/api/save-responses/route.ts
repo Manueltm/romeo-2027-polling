@@ -8,19 +8,23 @@ export async function POST(req: Request) {
 
     // Local dev: Save to file
     if (process.env.NODE_ENV === 'development') {
-      await fs.appendFile('responses.json', JSON.stringify(data) + '\n');
+      const responseWithTimestamp = {
+        ...data,
+        created_at: new Date().toISOString(),
+      };
+      await fs.appendFile('responses.json', JSON.stringify(responseWithTimestamp) + '\n');
     } else {
       // Production: Save to Vercel Postgres
       await sql`
         INSERT INTO responses (
           language, name, state, lga, ward, age, gender,
           knows_romeo, knows_muyideen, knows_abdulrasheed,
-          heard_savewell, residence, phone
+          heard_savewell, residence, phone, created_at
         ) VALUES (
           ${data.language}, ${data.name}, ${data.state}, ${data.lga},
           ${data.ward}, ${data.age}, ${data.gender},
           ${data.knowsRomeo}, ${data.knowsMuyideen}, ${data.knowsAbdulrasheed},
-          ${data.heardSavewell}, ${data.residence}, ${data.phone}
+          ${data.heardSavewell}, ${data.residence}, ${data.phone}, NOW()
         )
       `;
     }
