@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useRef } from 'react';
@@ -85,7 +84,7 @@ export default function Home() {
       'More about Dr. Abdulrasheed',
       'What Dr. Abdulrasheed Stands for',
       'How will Dr. Abdulrasheed better Osun state',
-      'Dr. Abdulrasheed’s Achievements',
+      'Dr. Abdulrasheed\'s Achievements',
       'Vision for 2027',
       'Policies on Economy',
       'Community Impact in Osun',
@@ -224,7 +223,7 @@ export default function Home() {
                     <select {...field} className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
                       <option value="">{translations.selectLanguage}</option>
                       <option value="English">English</option>
-                      <option value="Yoruba">Yoruba</option>
+                      <option value="Yoruba">Ede Yoruba</option>
                     </select>
                   )}
                 />
@@ -460,27 +459,38 @@ export default function Home() {
         </form>
       )}
 
-      {/* Submission Popup Card */}
+      {/* Submission Popup Card - Fixed for mobile */}
       {showModal && step === 3 && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-[90vw] sm:max-w-md max-h-[90vh] overflow-y-auto">
-            <div className="flex flex-col sm:flex-row items-center sm:items-start">
-              <Image src="/politician-image.jpg" alt="Dr. Abdulrasheed" width={120} height={120} className="rounded-lg mb-4 sm:mb-0 sm:mr-4" />
-              <div className="flex flex-col justify-between w-full">
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-center sm:text-left">{translations.modal.name}</h3>
-                  <p className="text-gray-600 text-sm sm:text-base text-center sm:text-left">{translations.modal.age}</p>
-                  <p className="text-gray-600 text-sm sm:text-base text-center sm:text-left">{translations.modal.party}</p>
-                  <p className="text-gray-600 text-sm sm:text-base text-center sm:text-left">{translations.modal.identity}</p>
-                </div>
-                <div className="flex flex-col sm:flex-row mt-4 space-y-2 sm:space-y-0 sm:space-x-2">
-                  <button onClick={handleTellMeMore} className="bg-blue-500 text-white p-3 rounded w-full sm:w-auto">
-                    {translations.modal.tellMeMore}
-                  </button>
-                  <button onClick={() => setShowModal(false)} className="bg-gray-500 text-white p-3 rounded w-full sm:w-auto">
-                    {translations.modal.close}
-                  </button>
-                </div>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-xs mx-auto overflow-hidden">
+            <div className="flex flex-col items-center p-4 sm:p-6">
+              <div className="w-24 h-24 sm:w-32 sm:h-32 mb-4 relative">
+                <Image 
+                  src="/politician-image.jpg" 
+                  alt="Dr. Abdulrasheed" 
+                  fill
+                  className="rounded-lg object-cover"
+                />
+              </div>
+              <div className="text-center w-full">
+                <h3 className="text-lg sm:text-xl font-bold mb-2">{translations.modal.name}</h3>
+                <p className="text-gray-600 text-sm sm:text-base mb-1">{translations.modal.age}</p>
+                <p className="text-gray-600 text-sm sm:text-base mb-1">{translations.modal.party}</p>
+                <p className="text-gray-600 text-sm sm:text-base mb-4">{translations.modal.identity}</p>
+              </div>
+              <div className="flex flex-col w-full gap-2">
+                <button 
+                  onClick={handleTellMeMore} 
+                  className="bg-blue-500 text-white p-3 rounded w-full text-sm sm:text-base"
+                >
+                  {translations.modal.tellMeMore}
+                </button>
+                <button 
+                  onClick={() => setShowModal(false)} 
+                  className="bg-gray-500 text-white p-3 rounded w-full text-sm sm:text-base"
+                >
+                  {translations.modal.close}
+                </button>
               </div>
             </div>
           </div>
@@ -491,14 +501,21 @@ export default function Home() {
       {step === 4 && (
         <div className="w-full max-w-md bg-white p-4 sm:p-6 rounded-lg shadow-lg">
           <div className="flex flex-col items-center">
-            <Image src="/politician-image.jpg" alt="Dr. Abdulrasheed" width={120} height={120} className="rounded-lg mb-4" />
+            <div className="w-20 h-20 sm:w-24 sm:h-24 mb-4 relative">
+              <Image 
+                src="/politician-image.jpg" 
+                alt="Dr. Abdulrasheed" 
+                fill
+                className="rounded-lg object-cover"
+              />
+            </div>
             <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-center">{translations.aiSection.title}</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full mb-4">
               {aiOptions.map((opt, i) => (
                 <button
                   key={i}
                   onClick={() => handleAiSubmit(opt)}
-                  className="text-left bg-gray-200 p-3 rounded hover:bg-gray-300"
+                  className="text-left bg-gray-100 hover:bg-gray-200 p-3 rounded-lg text-sm sm:text-base transition-colors duration-200 border border-gray-200"
                 >
                   {opt}
                 </button>
@@ -509,18 +526,18 @@ export default function Home() {
                 value={aiQuestion}
                 onChange={(e) => setAiQuestion(e.target.value)}
                 placeholder={translations.aiSection.askPlaceholder}
-                className="p-3 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="p-3 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
               />
               <button
                 onClick={() => handleAiSubmit(aiQuestion)}
-                className="mt-4 bg-blue-500 text-white p-3 rounded w-full disabled:bg-gray-400"
+                className="mt-3 bg-blue-500 text-white p-3 rounded-lg w-full disabled:bg-gray-400 text-sm sm:text-base"
                 disabled={!aiQuestion.trim()}
               >
                 {translations.aiSection.ask}
               </button>
               <button
                 onClick={handleSaveAndQuit}
-                className="mt-4 bg-red-500 text-white p-3 rounded w-full"
+                className="mt-2 bg-red-500 text-white p-3 rounded-lg w-full text-sm sm:text-base"
               >
                 {translations.aiSection.saveAndQuit}
               </button>
@@ -529,27 +546,40 @@ export default function Home() {
         </div>
       )}
 
-      {/* AI Loading Modal */}
+      {/* AI Loading Modal - Fixed for mobile */}
       {showAiLoadingModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-[90vw] sm:max-w-md">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-xs mx-auto p-6">
             <p className="text-gray-800 text-center text-sm sm:text-base">{translations.aiSection.loading}</p>
           </div>
         </div>
       )}
 
-      {/* AI Response Popup */}
+      {/* AI Response Popup - Fixed for mobile */}
       {showAiResponseModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-[90vw] sm:max-w-md max-h-[90vh] overflow-y-auto">
-            <Image src="/politician-image.jpg" alt="Dr. Abdulrasheed" width={120} height={120} className="rounded-lg mx-auto mb-4" />
-            <p className="text-gray-800 text-sm sm:text-base mb-4">{aiResponse}</p>
-            <button
-              onClick={() => setShowAiResponseModal(false)}
-              className="bg-gray-500 text-white p-3 rounded w-full"
-            >
-              {translations.modal.close}
-            </button>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-xs mx-auto max-h-[80vh] flex flex-col">
+            <div className="p-4 sm:p-6 flex-1 overflow-y-auto">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 relative">
+                <Image 
+                  src="/politician-image.jpg" 
+                  alt="Dr. Abdulrasheed" 
+                  fill
+                  className="rounded-lg object-cover"
+                />
+              </div>
+              <div className="text-gray-800 text-sm sm:text-base leading-relaxed overflow-y-auto max-h-96">
+                {aiResponse}
+              </div>
+            </div>
+            <div className="p-4 border-t">
+              <button
+                onClick={() => setShowAiResponseModal(false)}
+                className="bg-gray-500 text-white p-3 rounded-lg w-full text-sm sm:text-base"
+              >
+                {translations.modal.close}
+              </button>
+            </div>
           </div>
         </div>
       )}
